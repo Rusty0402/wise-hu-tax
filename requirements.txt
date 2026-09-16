@@ -1,0 +1,4 @@
+streamlit>=1.64
+yfinance>=1.7
+pandas>=2.2
+requests>=2.31
