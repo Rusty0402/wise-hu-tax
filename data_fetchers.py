@@ -1,17 +1,15 @@
-"""Data fetching for the WiseHU RSU tax calculator.
+"""This is the main data fetcher.
 
-Two external sources are used:
+Two sources:
 
-* Yahoo Finance (via ``yfinance``) for historical stock prices.
-* The official Magyar Nemzeti Bank (MNB) SOAP service for historical daily
-  HUF exchange rates.
+* Yahoo Finance via yfinance for historical close prices.
+* The official Magyar Nemzeti Bank service for historical daily
+  HUF rates.
 
-Both sources only quote on business/trading days, so every lookup falls back
-to the most recent *available* quote at or before the requested date. Every
-public function returns a small dataclass so the UI can show exactly which
-date and value was used (and let the user override it).
+Both sources only quote on business days, so every lookup falls back
+to the most recent available quote at/before the requested date.
 
-The two ``_fetch_*`` helpers are the network seams: smoke tests monkeypatch
+The two _fetch_* helpers are the network seams: smoke tests monkeypatch
 them so no real API calls are made.
 """
 
@@ -44,7 +42,7 @@ HEADERS = {
 
 @dataclass(frozen=True)
 class Quote:
-    """A historical stock price and the calendar date it was quoted on."""
+    """Historical stock price and the calendar date it was quoted on."""
 
     date: date
     value: float
@@ -52,7 +50,7 @@ class Quote:
 
 @dataclass(frozen=True)
 class Rate:
-    """An official MNB rate (HUF per 1 currency unit) and its calendar date."""
+    """MNB rate (HUF per 1 currency unit) and its calendar date."""
 
     date: date
     value: float
@@ -63,7 +61,7 @@ class Rate:
 def _fetch_yahoo_close(ticker: str, start: str, end: str) -> Optional[dict]:
     """Return {iso_date: close} for ``ticker`` in [start, end].
 
-    Kept separate so tests can stub it without touching the network.
+    Kept separate so test can pass them without touching network.
     """
     frame = yf.Ticker(ticker).history(
         start=start, end=end, auto_adjust=False
@@ -77,7 +75,7 @@ def _fetch_yahoo_close(ticker: str, start: str, end: str) -> Optional[dict]:
 def _fetch_mnb_rates(currencies: list[str], start: str, end: str) -> Optional[dict]:
     """Return {iso_date: {currency: huf_per_unit}} for the given range.
 
-    Hits the official MNB SOAP service and parses the nested XML result.
+    Hits MNB SOAP service and parses the XML.
     """
     currency_csv = ",".join(currencies)
     body = f"""<?xml version="1.0" encoding="utf-8"?>
