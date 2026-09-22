@@ -1,13 +1,13 @@
 """Streamlit UI for the Wise HU RSU tax calculator.
 
 Flow:
-1. Enter vesting lots (date, ticker, qty). Optionally auto-fetch the Yahoo
-   closing price and MNB FX rate for each lot (editable afterwards).
+1. Enter vesting lots (date, ticker, qty). Auto-fetch the Yahoo
+   closing price and MNB FX rate for each lot.
 2. Describe a sale (ticker, qty, date, price, rate, fees).
 3. The app computes SZJA + SZOCHO due on the capital gain using the
    Hungarian average-cost method and shows a full breakdown.
 
-The UI is available in English and Hungarian (toggle in the sidebar).
+The UI is available in English and Hungarian.
 """
 
 from datetime import date
