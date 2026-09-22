@@ -1,7 +1,7 @@
-"""Smoke tests for the WiseHU RSU tax calculator.
+"""Smoke tests for the calculator.
 
-Network-touching functions are stubbed so the suite runs offline. The tax
-math itself is exercised with hand-computed expectations.
+Network-touching functions are stubbed so all tests runs offline. The tax
+math itself is exercised with hard-coded calculations.
 """
 
 from datetime import date
