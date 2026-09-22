@@ -1,7 +1,6 @@
-"""Central configuration for the WiseHU RSU tax calculator.
+"""Central config file for the calculator.
 
-Tax constants and default security metadata live here so they are easy to
-review and update as Hungarian rules and Wise listings change.
+Tax constants and default security meta live here so they are easy to update.
 """
 
 from dataclasses import dataclass
