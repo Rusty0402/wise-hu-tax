@@ -1,4 +1,4 @@
-"""Lightweight English / Hungarian translations for the app.
+"""Language Flipper. Pretty lightweight
 
 The calculator and fetchers emit user-facing strings too (warnings, "no data"
 errors), so they also look up translations here. The default language is
