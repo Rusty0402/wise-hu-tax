@@ -1,9 +1,9 @@
-"""Pure tax-calculation logic for the WiseHU RSU tax calculator.
+"""Main tax calculation logic.
 
-No I/O lives here: every input is already in HUF or in a known currency with
-the corresponding MNB rate supplied. This keeps the math trivially testable.
+NO I/O HERE: input is already in HUF with
+the corresponding MNB rate supplied via SOAP. This keeps the math trivial and separate from I/O Python.
 
-Model (Hungarian tax rules as of 2026):
+Model for tax rules as of 2026:
 
 * Shares sold on a regulated exchange (Nasdaq/LSE) through a broker count as
   an "ellenőrzött tőkepiaci ügylet" (controlled capital market transaction).
@@ -115,7 +115,7 @@ def calculate_sale_tax(
     apply_szocho: bool = False,
     lang: str = "en",
 ) -> TaxResult:
-    """Compute SZJA + SZOCHO due on ``sale`` against ``lots``.
+    """Calculate SZJA + SZOCHO due on ``sale`` against ``lots``.
 
     ``apply_szocho`` defaults to ``False`` because a sale on a regulated
     exchange through a broker is a controlled capital market transaction
